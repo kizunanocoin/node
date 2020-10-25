@@ -1,0 +1,13 @@
+[Unit]
+Description=KIZUNANO COIN Daemon beta network
+After=network.target
+
+[Service]
+Type=simple
+User=kizunanocoin
+WorkingDirectory=/var/kizunanocoin/KizunanoBeta
+ExecStart=/usr/bin/kizunano_node-beta --daemon
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,64 @@
+Name:                   kizunanocoin
+Version:                @VERSION@ 
+Release:                @RELEASE@%{?dist}
+Summary:                KIZUNANO COIN Daemon
+License:                BSD-3-Clause
+URL:                    https://www.newkizunacoin.com/
+Requires(pre):          /usr/sbin/useradd, /usr/bin/getent
+Requires(postun):       /usr/sbin/userdel
+BuildRequires:          make, libstdc++-static, glibc-devel, glibc-headers
+Source:                 kizunano-%{version}.tar.gz
+
+%description
+This is kizunanocoin daemon. KIZUNANO COIN is a digital currency that is
+peer-to-peer, decentralized, and trustless. This package includes
+the kizunanocoin daemon, and a service.
+
+%prep
+if [ ! -x "$(which cmake)" ]; then
+	echo "cmake must exist, try:" >&2
+	echo "      scl enable llvm-toolset-7 devtoolset-7 'rpmbuild ...'" >&2
+	exit 1
+fi
+if cc --std=c++14 --version 2>&1 >/dev/null | grep '^' >/dev/null; then
+	echo "Unsupported C++ compiler, try:" >&2
+	echo "      scl enable llvm-toolset-7 devtoolset-7 'rpmbuild ...'" >&2
+	exit 1
+fi
+if test ! -d /usr/local/boost; then
+	echo "Boost should be in /usr/local/boost" >&2
+	exit 1
+fi
+%autosetup -n kizunano-%{version}
+
+%build
+cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBOOST_ROOT=/usr/local/boost .
+make kizunano_node %{?_smp_mflags}
+
+%install
+if [ ! %{buildroot} = "/" ]; then %{__rm} -rf %{buildroot}; fi
+mkdir -p %{buildroot}/usr/bin
+mkdir -p %{buildroot}/etc/systemd/system/
+cp kizunano_node %{buildroot}/usr/bin/kizunano_node
+cp kizunano_rpc %{buildroot}/usr/bin/kizunano_rpc
+cp etc/systemd/kizunanocoin.service %{buildroot}/etc/systemd/system/kizunanocoin.service
+
+%clean
+if [ ! %{buildroot} = "/" ]; then %{__rm} -rf %{buildroot}; fi
+
+%files
+%defattr(755,root,root)
+%{_bindir}/kizunano_node
+%attr(644,root,root) /etc/systemd/system/kizunanocoin.service
+
+%pre
+PATH="/usr/bin:/usr/sbin:/bin:/sbin:${PATH}"; export PATH
+mkdir -p /var/kizunanocoin/Kizunano
+getent group kizunanocoin >/dev/null || groupadd --system kizunanocoin || exit 1
+getent passwd kizunanocoin >/dev/null || useradd --system --create-home --home-dir /var/kizunanocoin --shell /bin/bash --comment "KIZUNANO COIN Daemon user" --gid nanocurrency nanocurrency || exit 1
+chown -R kizunanocoin:kizunanocoin /var/kizunanocoin
+chmod 700 /var/kizunanocoin
+
+%postun
+PATH="/usr/bin:/usr/sbin:/bin:/sbin:${PATH}"; export PATH
+userdel kizunanocoin >/dev/null 2>/dev/null || :

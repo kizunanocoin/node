@@ -1,4 +1,4 @@
-KEEP_AROUND_DIRECTORY="${HOME:-/dev/null}/.cache/nanocurrency-build"
+KEEP_AROUND_DIRECTORY="${HOME:-/dev/null}/.cache/kizunanocoin-build"
 
 function _cpp () {
 	"${CC:-cc}" -I"${BOOST_ROOT:-/usr/local/boost}"/include -E "$@"

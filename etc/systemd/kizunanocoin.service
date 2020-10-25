@@ -1,0 +1,13 @@
+[Unit]
+Description=KIZUNANO COIN Daemon live network
+After=network.target
+
+[Service]
+Type=simple
+User=kizunanocoin
+WorkingDirectory=/var/kizunanocoin/Kizunano
+ExecStart=/usr/bin/kizunano_node --daemon
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -18,7 +18,7 @@ endif ()
 # needs to be set before project
 set (CMAKE_OSX_DEPLOYMENT_TARGET 10.12 CACHE STRING "")
 
-project (nano-node)
+project (kizunano-node)
 
 # Get the latest abbreviated commit hash of the working branch
 execute_process(
@@ -39,7 +39,7 @@ set (CPACK_PACKAGE_VERSION_MAJOR "21")
 set (CPACK_PACKAGE_VERSION_MINOR "2")
 set (CPACK_PACKAGE_VERSION_PATCH "0")
 set (CPACK_PACKAGE_VERSION_PRE_RELEASE "0")
-set (CPACK_PACKAGE_VENDOR "Nano Currency")
+set (CPACK_PACKAGE_VENDOR "The KIZ Association")
 
 if (CI_BUILD)
 	set (TAG_VERSION_STRING "$ENV{TRAVIS_TAG}")
@@ -60,7 +60,6 @@ set (NANO_GUI OFF CACHE BOOL "")
 set (NANO_TEST OFF CACHE BOOL "")
 set (NANO_SECURE_RPC OFF CACHE BOOL "")
 set (NANO_ROCKSDB OFF CACHE BOOL "")
-set (NANO_POW_SERVER OFF CACHE BOOL "")
 set (NANO_WARN_TO_ERR OFF CACHE BOOL "")
 set (NANO_TIMED_LOCKS 0 CACHE STRING "")
 set (NANO_FUZZER_TEST OFF CACHE BOOL "")
@@ -86,8 +85,8 @@ option(NANO_SIMD_OPTIMIZATIONS "Enable CPU-specific SIMD optimizations (SSE/AVX 
 option(ENABLE_AES "Enable AES optimizations (enabled by default with NANO_SIMD_OPTIMIZATIONS, set OFF to disable" ON)
 option(ENABLE_AVX2 "Enable AVX2 optimizations" OFF)
 
-SET (ACTIVE_NETWORK nano_live_network CACHE STRING "Selects which network parameters are used")
-set_property (CACHE ACTIVE_NETWORK PROPERTY STRINGS nano_test_network nano_beta_network nano_live_network)
+SET (ACTIVE_NETWORK kizunano_live_network CACHE STRING "Selects which network parameters are used")
+set_property (CACHE ACTIVE_NETWORK PROPERTY STRINGS kizunano_test_network kizunano_beta_network kizunano_live_network)
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
@@ -241,7 +240,7 @@ if (WIN32 AND NANO_TEST AND NANO_SHARED_BOOST)
 	set(NANO_SHARED_BOOST)
 endif()
 
-set(NANO_SHARED_BOOST OFF CACHE BOOL "Build Nano with shared boost")
+set(NANO_SHARED_BOOST OFF CACHE BOOL "Build Kizunanocoin with shared boost")
 
 if (NANO_SHARED_BOOST)
 	SET(Boost_USE_STATIC_LIBS OFF)
@@ -273,8 +272,8 @@ endif ()
 include_directories(cpptoml/include)
 add_subdirectory(crypto/ed25519-donna)
 
-add_subdirectory(nano/ipc_flatbuffers_lib)
-add_subdirectory(nano/ipc_flatbuffers_test)
+add_subdirectory(kizunano/ipc_flatbuffers_lib)
+add_subdirectory(kizunano/ipc_flatbuffers_test)
 
 set (UPNPC_BUILD_SHARED OFF CACHE BOOL "")
 add_subdirectory (miniupnp/miniupnpc EXCLUDE_FROM_ALL)
@@ -401,20 +400,17 @@ add_library (blake2
 
 target_compile_definitions(blake2 PRIVATE -D__SSE2__)
 
-if (NANO_POW_SERVER)
-	add_subdirectory(nano-pow-server)
-endif ()
-add_subdirectory(nano/crypto_lib)
-add_subdirectory(nano/secure)
-add_subdirectory(nano/lib)
-add_subdirectory(nano/node)
-add_subdirectory(nano/nano_node)
-add_subdirectory(nano/rpc)
-add_subdirectory(nano/nano_rpc)
+add_subdirectory(kizunano/crypto_lib)
+add_subdirectory(kizunano/secure)
+add_subdirectory(kizunano/lib)
+add_subdirectory(kizunano/node)
+add_subdirectory(kizunano/kizunano_node)
+add_subdirectory(kizunano/rpc)
+add_subdirectory(kizunano/kizunano_rpc)
 
 if (NANO_FUZZER_TEST)
 	if (NOT WIN32)
-		add_subdirectory (nano/fuzzer_test)
+		add_subdirectory (kizunano/fuzzer_test)
 	else ()
 		message (WARNING "Fuzzing is not supported on Windows")
 	endif ()
@@ -433,7 +429,7 @@ if (NANO_TEST OR RAIBLOCKS_TEST)
 		set (gtest_force_shared_crt OFF)
 	endif()
 
-	add_subdirectory(nano/load_test)
+	add_subdirectory(kizunano/load_test)
 
 	add_subdirectory (gtest/googletest)
 	# FIXME: This fixes gtest include directories without modifying gtest's
@@ -442,9 +438,9 @@ if (NANO_TEST OR RAIBLOCKS_TEST)
 	set_target_properties(gtest PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
 		"${CMAKE_SOURCE_DIR}/gtest/googletest/include")
 
-	add_subdirectory(nano/core_test)
-	add_subdirectory(nano/rpc_test)
-	add_subdirectory(nano/slow_test)
+	add_subdirectory(kizunano/core_test)
+	add_subdirectory(kizunano/rpc_test)
+	add_subdirectory(kizunano/slow_test)
 endif ()
 if (NANO_GUI OR RAIBLOCKS_GUI)
 	install (FILES ${PROJECT_BINARY_DIR}/config-node.toml.sample DESTINATION .)
@@ -458,11 +454,11 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 	find_package (Qt5 COMPONENTS Core Gui Widgets Test ${PLATFORM_QT_PACKAGES})
 
 	add_library (qt
-		nano/qt/qt.cpp
-		nano/qt/qt.hpp)
+		kizunano/qt/qt.cpp
+		kizunano/qt/qt.hpp)
 
 	target_link_libraries(qt
-		node secure nano_lib libminiupnpc-static Qt5::Gui Qt5::Widgets)
+		node secure kizunano_lib libminiupnpc-static Qt5::Gui Qt5::Widgets)
 
 	target_compile_definitions(qt
 		PRIVATE
@@ -476,55 +472,55 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 	endif ()
 
 	if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/default/icon.cpp)
+		set (PLATFORM_WALLET_SOURCE kizunano/kizunano_wallet/plat/default/icon.cpp)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/windows/icon.cpp Nano.rc)
+		set (PLATFORM_WALLET_SOURCE kizunano/kizunano_wallet/plat/windows/icon.cpp Kizunanocoin.rc)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/default/icon.cpp)
+		set (PLATFORM_WALLET_SOURCE kizunano/kizunano_wallet/plat/default/icon.cpp)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
-		set (PLATFORM_WALLET_SOURCE nano/nano_wallet/plat/default/icon.cpp)
+		set (PLATFORM_WALLET_SOURCE kizunano/kizunano_wallet/plat/default/icon.cpp)
 	else ()
 		error ("Unknown platform: ${CMAKE_SYSTEM_NAME}")
 	endif ()
 
 	qt5_add_resources(RES resources.qrc)
 
-	add_executable (nano_wallet ${PLATFORM_GUI_TARGET_PROPERTIES}
+	add_executable (kizunano_wallet ${PLATFORM_GUI_TARGET_PROPERTIES}
 		${PLATFORM_WALLET_SOURCE}
-		nano/nano_wallet/entry.cpp
-		nano/nano_wallet/icon.hpp
+		kizunano/kizunano_wallet/entry.cpp
+		kizunano/kizunano_wallet/icon.hpp
 		${RES})
 
-	target_link_libraries (nano_wallet
+	target_link_libraries (kizunano_wallet
 		rpc
 		node
 		qt)
 
-	target_compile_definitions(nano_wallet
+	target_compile_definitions(kizunano_wallet
 		PRIVATE
 			-DBOOST_PROCESS_SUPPORTED=${BOOST_PROCESS_SUPPORTED})
 
 	if (WIN32)
-		target_link_libraries (nano_wallet Qt5::WinExtras)
-		# nano_wallet.com executable for Windows console
-		add_executable(nano_wallet_com
-			nano/nano_wallet/entry_com.cpp)
-		target_link_libraries (nano_wallet_com
+		target_link_libraries (kizunano_wallet Qt5::WinExtras)
+		# kizunano_wallet.com executable for Windows console
+		add_executable(kizunano_wallet_com
+			kizunano/kizunano_wallet/entry_com.cpp)
+		target_link_libraries (kizunano_wallet_com
 			node)
-		set_target_properties (nano_wallet_com PROPERTIES COMPILE_FLAGS "-DBOOST_ASIO_HAS_STD_ARRAY=1" OUTPUT_NAME "nano_wallet" SUFFIX ".com")
+		set_target_properties (kizunano_wallet_com PROPERTIES COMPILE_FLAGS "-DBOOST_ASIO_HAS_STD_ARRAY=1" OUTPUT_NAME "kizunano_wallet" SUFFIX ".com")
 	endif()
 
 	add_executable (qt_system
-		nano/qt_system/entry.cpp)
+		kizunano/qt_system/entry.cpp)
 
 	target_link_libraries (qt_system qt node Qt5::Gui Qt5::Widgets)
 
-	set_target_properties (qt nano_wallet qt_system PROPERTIES COMPILE_FLAGS "-DQT_NO_KEYWORDS -DBOOST_ASIO_HAS_STD_ARRAY=1")
+	set_target_properties (qt kizunano_wallet qt_system PROPERTIES COMPILE_FLAGS "-DQT_NO_KEYWORDS -DBOOST_ASIO_HAS_STD_ARRAY=1")
 
 	if (NANO_TEST OR RAIBLOCKS_TEST)
 		add_executable (qt_test
-			nano/qt_test/entry.cpp
-			nano/qt_test/qt.cpp)
+			kizunano/qt_test/entry.cpp
+			kizunano/qt_test/qt.cpp)
 
 		target_link_libraries(qt_test gtest gtest_main qt Qt5::Test)
 
@@ -534,36 +530,32 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 	if (APPLE)
 		set (CPACK_GENERATOR "DragNDrop")
 		CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/Info.plist.in ${CMAKE_SOURCE_DIR}/Info.plist @ONLY)
-		install (TARGETS nano_wallet DESTINATION Nano.app/Contents/MacOS)
-		install (TARGETS nano_node DESTINATION Nano.app/Contents/MacOS)
-		install (TARGETS nano_rpc DESTINATION Nano.app/Contents/MacOS)
-		install (FILES Info.plist DESTINATION Nano.app/Contents)
-		install (FILES qt.conf DESTINATION Nano.app/Contents/Resources)
-		install (DIRECTORY ${Qt5_DIR}/../../QtCore.framework DESTINATION Nano.app/Contents/Frameworks)
-		install (DIRECTORY ${Qt5_DIR}/../../QtDBus.framework DESTINATION Nano.app/Contents/Frameworks)
-		install (DIRECTORY ${Qt5_DIR}/../../QtGui.framework DESTINATION Nano.app/Contents/Frameworks)
-		install (DIRECTORY ${Qt5_DIR}/../../QtPrintSupport.framework DESTINATION Nano.app/Contents/Frameworks)
-		install (DIRECTORY ${Qt5_DIR}/../../QtTest.framework DESTINATION Nano.app/Contents/Frameworks)
-		install (DIRECTORY ${Qt5_DIR}/../../QtWidgets.framework DESTINATION Nano.app/Contents/Frameworks)
-		install (FILES "${Qt5_DIR}/../../../plugins/platforms/libqcocoa.dylib" DESTINATION Nano.app/Contents/PlugIns/platforms)
+		install (TARGETS kizunano_wallet DESTINATION Kizunanocoin.app/Contents/MacOS)
+		install (TARGETS kizunano_node DESTINATION Kizunanocoin.app/Contents/MacOS)
+		install (TARGETS kizunano_rpc DESTINATION Kizunanocoin.app/Contents/MacOS)
+		install (FILES Info.plist DESTINATION Kizunanocoin.app/Contents)
+		install (FILES qt.conf DESTINATION Kizunanocoin.app/Contents/Resources)
+		install (DIRECTORY ${Qt5_DIR}/../../QtCore.framework DESTINATION Kizunanocoin.app/Contents/Frameworks)
+		install (DIRECTORY ${Qt5_DIR}/../../QtDBus.framework DESTINATION Kizunanocoin.app/Contents/Frameworks)
+		install (DIRECTORY ${Qt5_DIR}/../../QtGui.framework DESTINATION Kizunanocoin.app/Contents/Frameworks)
+		install (DIRECTORY ${Qt5_DIR}/../../QtPrintSupport.framework DESTINATION Kizunanocoin.app/Contents/Frameworks)
+		install (DIRECTORY ${Qt5_DIR}/../../QtTest.framework DESTINATION Kizunanocoin.app/Contents/Frameworks)
+		install (DIRECTORY ${Qt5_DIR}/../../QtWidgets.framework DESTINATION Kizunanocoin.app/Contents/Frameworks)
+		install (FILES "${Qt5_DIR}/../../../plugins/platforms/libqcocoa.dylib" DESTINATION Kizunanocoin.app/Contents/PlugIns/platforms)
 		if (NANO_SHARED_BOOST)
 			get_filename_component(Boost_LIB_DIR ${BOOST_ROOT}/lib ABSOLUTE)
-			install (FILES ${Boost_LIB_DIR}/libboost_log.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_filesystem.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_log_setup.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_regex.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_program_options.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_system.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_thread.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_date_time.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_chrono.dylib DESTINATION Nano.app/Contents/boost/lib)
-			install (FILES ${Boost_LIB_DIR}/libboost_atomic.dylib DESTINATION Nano.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_log.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_filesystem.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_log_setup.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_regex.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_program_options.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_system.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_thread.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_date_time.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_chrono.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
+			install (FILES ${Boost_LIB_DIR}/libboost_atomic.dylib DESTINATION Kizunanocoin.app/Contents/boost/lib)
 		endif()
-		if (NANO_POW_SERVER)
-			install (TARGETS nano_pow_server DESTINATION Nano.app/Contents/MacOS)
-			install (DIRECTORY ${PROJECT_SOURCE_DIR}/nano-pow-server/public DESTINATION Nano.app/Contents/MacOS)
-		endif()
-		install (FILES Nano.icns DESTINATION Nano.app/Contents/Resources)
+		install (FILES Kizunanocoin.icns DESTINATION Kizunanocoin.app/Contents/Resources)
 	elseif (WIN32)
 		if ("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
 			set (WIN_REDIST vc_redist.x64.exe)
@@ -571,22 +563,22 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 			set (WIN_REDIST vc_redist.x86.exe)
 		endif ()
 		set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\${WIN_REDIST}\\\" /quiet /norestart'
-												WriteRegDWORD HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Nano\\\\Nano' 'TypesSupported' '0x7'
-												WriteRegStr HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Nano\\\\Nano' 'EventMessageFile' '$INSTDIR\\\\nano_wallet.exe'")
-		set (CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "DeleteRegKey HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Nano'")
-		set (CPACK_PACKAGE_INSTALL_DIRECTORY "nanocurrency")
-		set (CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/Nano.ico)
-		set (CPACK_NSIS_DISPLAY_NAME "Nano")
-		set (CPACK_PACKAGE_NAME "nano-node")
-		set (CPACK_NSIS_PACKAGE_NAME "Nano")
-		set (CPACK_NSIS_URL_INFO_ABOUT "https://nano.org")
-		set (CPACK_NSIS_CONTACT "info@nano.org")
-		set (CPACK_NSIS_MENU_LINKS "nano_wallet.exe" "Nano Wallet" "https://nano.org" "Nano website")
+												WriteRegDWORD HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Kizunanocoin\\\\Kizunanocoin' 'TypesSupported' '0x7'
+												WriteRegStr HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Kizunanocoin\\\\Kizunanocoin' 'EventMessageFile' '$INSTDIR\\\\kizunano_wallet.exe'")
+		set (CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "DeleteRegKey HKLM 'SYSTEM\\\\CurrentControlSet\\\\Services\\\\EventLog\\\\Kizunanocoin'")
+		set (CPACK_PACKAGE_INSTALL_DIRECTORY "kizunanocoin")
+		set (CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/Kizunanocoin.ico)
+		set (CPACK_NSIS_DISPLAY_NAME "Kizunanocoin")
+		set (CPACK_PACKAGE_NAME "kizunano-node")
+		set (CPACK_NSIS_PACKAGE_NAME "Kizunanocoin")
+		set (CPACK_NSIS_URL_INFO_ABOUT "https://www.newkizunanocoin.com")
+		set (CPACK_NSIS_CONTACT "info@kizunanocoin.com")
+		set (CPACK_NSIS_MENU_LINKS "kizunano_wallet.exe" "KIZUNANO COIN WALLET" "https://www.newkizunacoin.com" "KIZUNANO COIN website")
 		set (CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 		get_target_property (Qt5WindowsPlugin Qt5::QWindowsIntegrationPlugin LOCATION)
 		get_filename_component (Qt5_bin_DIR ${Qt5_DIR}/../../../bin ABSOLUTE)
-		install (TARGETS nano_wallet DESTINATION .)
-		install (TARGETS nano_wallet_com DESTINATION .)
+		install (TARGETS kizunano_wallet DESTINATION .)
+		install (TARGETS kizunano_wallet_com DESTINATION .)
 		if (NANO_SHARED_BOOST)
 			foreach(boost_lib IN LISTS Boost_LIBRARIES)
 				if (${CMAKE_BUILD_TYPE} MATCHES "Rel")
@@ -604,10 +596,6 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 				endif()
 			endforeach(boost_lib)
 		endif()
-		if (NANO_POW_SERVER)
-			install (TARGETS nano_pow_server DESTINATION .)
-			install (DIRECTORY ${PROJECT_SOURCE_DIR}/nano-pow-server/public DESTINATION .)
-		endif ()
 		install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${WIN_REDIST} DESTINATION .)
 		install (FILES ${Qt5_bin_DIR}/libGLESv2.dll DESTINATION .)
 		install (FILES ${Qt5_bin_DIR}/Qt5Core.dll DESTINATION .)
@@ -618,8 +606,8 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 	else ()
 		set(CPACK_GENERATOR "TBZ2;DEB")
 		set(CPACK_DEBIAN_PACKAGE_DEPENDS qt5-default)
-		set(CPACK_DEBIAN_PACKAGE_MAINTAINER "russel@nano.org")
-		install(TARGETS nano_wallet
+		set(CPACK_DEBIAN_PACKAGE_MAINTAINER "info@kizunanocoin.com")
+		install(TARGETS kizunano_wallet
 				RUNTIME DESTINATION ./bin
 		)
 		if (NANO_SHARED_BOOST)
@@ -635,10 +623,6 @@ if (NANO_GUI OR RAIBLOCKS_GUI)
 			install (FILES ${Boost_LIB_DIR}/libboost_chrono.so.${Boost_VERSION_STRING} DESTINATION ./lib)
 			install (FILES ${Boost_LIB_DIR}/libboost_atomic.so.${Boost_VERSION_STRING} DESTINATION ./lib)
 		endif()
-		if (NANO_POW_SERVER)
-			install (TARGETS nano_pow_server DESTINATION ./bin)
-			install (DIRECTORY ${PROJECT_SOURCE_DIR}/nano-pow-server/public DESTINATION ./bin)
-		endif ()
 	endif ()
 endif ()
 

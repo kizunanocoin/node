@@ -83,7 +83,7 @@ class cliArgs():
             '-r', '--repo',
             help="<org/repo> to generate logs for",
             type=str, action="store",
-            default='nanocurrency/nano-node',
+            default='kizunanocoin/kizunano-node',
         )
         parse.add_argument(
             '-s', '--start',
@@ -168,10 +168,10 @@ class generateMarkdown():
         )
         self.mdFile.new_line(
             "## **Release** " + \
-            "[{0}](https://github.com/nanocurrency/nano-node/tree/{0})"\
+            "[{0}](https://github.com/kizunanocoin/node/tree/{0})"\
                 .format(repo.end))
-        self.mdFile.new_line("[Full Changelog](https://github.com/nanocurrency"\
-            "/nano-node/compare/{0}...{1})".format(repo.start, repo.end))
+        self.mdFile.new_line("[Full Changelog](https://github.com/kizunanocoin"\
+            "/node/compare/{0}...{1})".format(repo.start, repo.end))
         sort = self.pull_to_section(repo.commits)
 
         for section, prs in sort.items():

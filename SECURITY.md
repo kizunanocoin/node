@@ -2,7 +2,7 @@
 
 ## Active Versions
 
-The Nano network is designed to allow peering between multiple versions of the node software, with older versions being periodically de-peered. The active versions currently peering and being supported can be found in the Node Releases page of our documentation: https://docs.nano.org/releases/node-releases/
+The KIZUNANO COIN network is designed to allow peering between multiple versions of the node software, with older versions being periodically de-peered.
 
 ## Security Audit
 
@@ -20,13 +20,8 @@ To report security issues in the Nano protocol, please send an email to security
 
 | GitHub Username | Email | GPG Pubkey |
 |-----------------------|--------|-----------------|
-| [clemahieu](https://github.com/clemahieu) | clemahieu { at } gmail.com | [clemahieu.asc](https://github.com/nanocurrency/nano-node/blob/develop/etc/gpg/clemahieu.asc) |
-| [argakiig](https://github.com/argakiig) | russel { at } nano.org | [argakiig.asc](https://github.com/nanocurrency/nano-node/blob/develop/etc/gpg/argakiig.asc) |
-| [wezrule](https://github.com/wezrule) | wezrule { at } hotmail.com | [wezrule.asc](https://github.com/nanocurrency/nano-node/blob/develop/etc/gpg/wezrule.asc) |
-| [sergiysw](https://github.com/sergiysw) | sergiysw { at } gmail.com | [sergiysw.asc](https://github.com/nanocurrency/nano-node/blob/develop/etc/gpg/sergiysw.asc) |
-| [guilhermelawless](https://github.com/guilhermelawless) | guilherme { at } nano.org | [guilhermelawless.asc](https://github.com/nanocurrency/nano-node/blob/develop/etc/gpg/guilhermelawless.asc) |
-| [zhyatt](https://github.com/zhyatt) | zach { at } nano.org | [zhyatt.asc](https://github.com/nanocurrency/nano-node/blob/develop/etc/gpg/zhyatt.asc) |
+| [kizunanocoin](https://github.com/kizunanocoin) | kizunanocoin { at } gmail.com | [kizunanocoin.asc](https://github.com/kizunanocoin/node/blob/develop/etc/gpg/kizunanocoin.asc) |
 
 For details on how to send a GPG encrypted email, see the tutorial here: https://www.linode.com/docs/security/encryption/gpg-keys-to-send-encrypted-messages/.
 
-For general support and other non-sensitive inquiries, please visit https://forum.nano.org.
+For general support and other non-sensitive inquiries, please visit https://chat.kizunanocoin.com.

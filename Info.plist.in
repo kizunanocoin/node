@@ -7,15 +7,15 @@
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
 	<key>CFBundleExecutable</key>
-	<string>nano_wallet</string>
+	<string>kizunano_wallet</string>
 	<key>CFBundleName</key>
-	<string>Nano</string>
+	<string>Kizunanocoin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleIconFile</key>
-	<string>Nano.icns</string>
+	<string>Kizunanocoin.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.nano.nano_wallet</string>
+	<string>com.kizunanocoin.kizunano_wallet</string>
 	<key>CFBundleShortVersionString</key>
 	<string>@CPACK_PACKAGE_VERSION_MAJOR@.@CPACK_PACKAGE_VERSION_MINOR@.@CPACK_PACKAGE_VERSION_PATCH@</string>
 	<key>CFBundleVersion</key>

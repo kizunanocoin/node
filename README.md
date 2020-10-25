@@ -10,46 +10,44 @@
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/nanocurrency/nano-node?color=darkblue&label=beta)](https://github.com/nanocurrency/nano-node/tags)
 [![Tests](https://github.com/nanocurrency/nano-node/workflows/Tests/badge.svg)](https://github.com/nanocurrency/nano-node/actions?query=workflow%3ATests)
 [![RelWithDebug Tests](https://github.com/nanocurrency/nano-node/workflows/Release%20Tests/badge.svg)](https://github.com/nanocurrency/nano-node/actions?query=workflow%3A%22Release+Tests%22)
-[![Discord](https://img.shields.io/badge/discord-join%20chat-orange.svg)](https://chat.nano.org)
+[![Discord](https://img.shields.io/badge/discord-join%20chat-orange.svg)](https://chat.kizunanocoin.com)
 
 ---
 
-### What is Nano?
+### What is KIZUNANO COIN?
 
-Nano is a digital payment protocol designed to be accessible and lightweight, with a focus on removing inefficiencies present in other cryptocurrencies. With ultrafast transactions and zero fees on a secure, green and decentralized network, this makes Nano ideal for everyday transactions.
+KIZUNANO COIN is a digital payment protocol designed to be accessible and lightweight, with a focus on removing inefficiencies present in other cryptocurrencies. With ultrafast transactions and zero fees on a secure, green and decentralized network, this makes KIZUNANO COIN ideal for everyday transactions.
 
 ---
 
 ### Guides & Documentation
 
-* [Whitepaper](https://nano.org/en/whitepaper)
-* [Running a Node](https://docs.nano.org/running-a-node/overview/)
-* [Integration Guides](https://docs.nano.org/integration-guides/the-basics/)
-* [Command Line Interface](https://docs.nano.org/commands/command-line-interface/)
-* [RPC Protocol](https://docs.nano.org/commands/rpc-protocol/)
+* [Whitepaper](https://kizunanocoin.com/en/whitepaper)
+* [Running a Node](https://docs.kizunanocoin.com/running-a-node/overview/)
+* [Integration Guides](https://docs.kizunanocoin.com/integration-guides/the-basics/)
+* [Command Line Interface](https://docs.kizunanocoin.com/commands/command-line-interface/)
+* [RPC Protocol](https://docs.kizunanocoin.com/commands/rpc-protocol/)
 
-Other documentation details can be found at https://docs.nano.org.
+Other documentation details can be found at https://docs.kizunanocoin.com.
 
 ---
 
 ### Links & Resources
 
-* [Nano Website](https://nano.org)
-* [Documentation](https://docs.nano.org)
-* [Discord Chat](https://chat.nano.org/)
-* [Reddit](https://reddit.com/r/nanocurrency)
-* [Medium](https://medium.com/nanocurrency)
-* [Twitter](https://twitter.com/nano)
+* [KIZUNANO COIN Website](https://www.newkizunacoin.com/)
+* [Documentation](https://docs.kizunanocoin.com)
+* [Discord Chat](https://chat.kizunanocoin.com/)
+* [Twitter](https://twitter.com/newkizunacoin)
 
 ---
 
 ### Want to Contribute?
 
-Please see the [contributors guide](https://docs.nano.org/protocol-design/overview/#contributing-code-to-the-nano-node).
+Please see the [contributors guide](https://docs.kizunanocoin.com/node-implementation/contributing/).
 
 ---
 
 ### Contact us
 
 We want to hear about any trouble, success, delight, or pain you experience when
-using Nano. Let us know by [filing an issue](https://github.com/nanocurrency/nano-node/issues), joining us on [Reddit](https://reddit.com/r/nanocurrency), or joining us on [Discord](https://chat.nano.org/).
+using KIZUNANO COIN. Let us know by [filing an issue](https://github.com/kizunanocoin/node/issues), or joining us on [Discord](https://chat.kizunanocoin.com/).
