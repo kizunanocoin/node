@@ -417,7 +417,7 @@ TEST (toml, daemon_config_deserialize_no_defaults)
 	peering_port = 999
 	pow_sleep_interval= 999
 	preconfigured_peers = ["test.org"]
-	preconfigured_representatives = ["kizn_3ich3w78f3yow7fwu4rm84su3kcqroikjrr7o1a3nh6ixwdgjzpheuyi4eby"]
+	preconfigured_representatives = ["kizn_3jottfzje496q53ipxy6zgkbheeg5ok1qzm93ggkpabw3aydj8nc3kcssjoy"]
 	receive_minimum = "999"
 	signature_checker_threads = 999
 	tcp_incoming_connections_max = 999

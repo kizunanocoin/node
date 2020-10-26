@@ -27,33 +27,33 @@ nano::nano_networks nano::network_constants::active_network = nano::nano_network
 
 namespace
 {
-char const * test_private_key_data = "525DD4E57AB1F1A462F56EC0F18FB1C3A2E52C3AA7042EA5C47FD1321E272717";
-char const * test_public_key_data = "4471DE2C20BBDF8A9B7D1D201636CBF2CF0AC35342A02CFBED5D146D6AC8023D"; // kizn_1j5jurp43gyzjcfqt9b14rueqwph3d3o8io17mxytqanfooei1jxdwbqnnwz
-char const * beta_public_key_data = "4A8079C61ACC8A09E0091C8F6543E9889520EA03BDE77938CD07FD4477816C0E"; // kizn_1kn1h953om6c39i1k96heo3ym46o65o19hh9h6wet3zxajur4u1gjoof5ca3
-char const * live_public_key_data = "4D509192F5AF57C08762BF76313340C7F2E35F7C8D183610918AF140A4C42520"; // kizn_1mcik8bhddtqr45p7hup86sn3jzkwfhqs5ar8rab54qja4keabb1acdirtga
+char const * test_private_key_data = "CC3083CE96F8AB8D7386E79C402B51565AF0559A1D80776F1808E4F7114DE72C";
+char const * test_public_key_data = "003978C749C3F3319223CC8979DB7E0164704ED75C4E61B658E3E559D7519BC2"; // kizn_113sh55nmizm88b49m6bh9fqw1d6g39fgq4ge8u7jrz7d9do58y45bigkn8b
+char const * beta_public_key_data = "D43B4FEDB11F0DFB4C31BA10B7ACF641B0EBE095D847D35542CE10760059683B"; // kizn_3o3ubzpu49rfzf855giipypheifixhibdp49tfcn7miigr17kt3u9cowmmhd
+char const * live_public_key_data = "30C804321524D5944F23FB7099433B8891C6A94CD1EBD7976924A445B8777B11"; // kizn_1e8a1is3cb8okj9k9yuim73mq46jrtnnsnhdtydpkb76apw9gyrjthbc4mso
 char const * test_genesis_data = R"%%%({
 	"type": "open",
-	"source": "4471DE2C20BBDF8A9B7D1D201636CBF2CF0AC35342A02CFBED5D146D6AC8023D",
-	"representative": "kizn_1j5jurp43gyzjcfqt9b14rueqwph3d3o8io17mxytqanfooei1jxdwbqnnwz",
-	"account": "kizn_1j5jurp43gyzjcfqt9b14rueqwph3d3o8io17mxytqanfooei1jxdwbqnnwz",
+	"source": "003978C749C3F3319223CC8979DB7E0164704ED75C4E61B658E3E559D7519BC2",
+	"representative": "kizn_113sh55nmizm88b49m6bh9fqw1d6g39fgq4ge8u7jrz7d9do58y45bigkn8b",
+	"account": "kizn_113sh55nmizm88b49m6bh9fqw1d6g39fgq4ge8u7jrz7d9do58y45bigkn8b",
 	"work": "9203d590d2f66483",
 	"signature": "B6C90BEC73DA4E61A1CBC9B8C8CD30D12A4E4AD69B78853BDBFCD4D34D5CCC5548BEEE4274BB25AAE593B2BDA24C5F8D469D17103E41AD0E046B7F5F444EC608"
 	})%%%";
 
 char const * beta_genesis_data = R"%%%({
 	"type": "open",
-	"source": "4A8079C61ACC8A09E0091C8F6543E9889520EA03BDE77938CD07FD4477816C0E",
-	"representative": "kizn_1kn1h953om6c39i1k96heo3ym46o65o19hh9h6wet3zxajur4u1gjoof5ca3",
-	"account": "kizn_1kn1h953om6c39i1k96heo3ym46o65o19hh9h6wet3zxajur4u1gjoof5ca3",
+	"source": "D43B4FEDB11F0DFB4C31BA10B7ACF641B0EBE095D847D35542CE10760059683B",
+	"representative": "kizn_3o3ubzpu49rfzf855giipypheifixhibdp49tfcn7miigr17kt3u9cowmmhd",
+	"account": "kizn_3o3ubzpu49rfzf855giipypheifixhibdp49tfcn7miigr17kt3u9cowmmhd",
 	"work": "60e4b7d9e2bf413f",
 	"signature": "EFC935E1693E19FDDAD3922BB0D10F373473CC3179AFAC113F898C3902400524F25DD0414EE5260DA2CFD3B32762F2C11B08BE8D9BC49FEFBD08460B13700805"
 	})%%%";
 
 char const * live_genesis_data = R"%%%({
 	"type": "open",
-	"source": "4D509192F5AF57C08762BF76313340C7F2E35F7C8D183610918AF140A4C42520",
-	"representative": "kizn_1mcik8bhddtqr45p7hup86sn3jzkwfhqs5ar8rab54qja4keabb1acdirtga",
-	"account": "kizn_1mcik8bhddtqr45p7hup86sn3jzkwfhqs5ar8rab54qja4keabb1acdirtga",
+	"source": "30C804321524D5944F23FB7099433B8891C6A94CD1EBD7976924A445B8777B11",
+	"representative": "kizn_1e8a1is3cb8okj9k9yuim73mq46jrtnnsnhdtydpkb76apw9gyrjthbc4mso",
+	"account": "kizn_1e8a1is3cb8okj9k9yuim73mq46jrtnnsnhdtydpkb76apw9gyrjthbc4mso",
 	"work": "70b8fa7cc39d64f5",
 	"signature": "06AC85C3B3EFFC796DD874AF1433614FDEE2F4EF5D19A37009F79008E952720E260C595C01F0F53FD312924A8CE8C8EC3B7A5383AD3534E93D41973FF9511006"
 	})%%%";
@@ -113,7 +113,7 @@ burn_account (0)
 
 	nano::link epoch_link_v2;
 	nano::account nano_live_epoch_v2_signer;
-	auto error (nano_live_epoch_v2_signer.decode_account ("kizn_3puohapgj8tp6nam1o3i7zyc3555xrh4iwmzx4wwd1wyefkf7kw1wmqt3fhi"));
+	auto error (nano_live_epoch_v2_signer.decode_account ("kizn_33fe5j9h8id1yw65iqpm34nzz6mb9cycef44pqa9xjsz884f99qzohgii93o"));
 	debug_assert (!error);
 	auto epoch_v2_signer (network_a == nano::nano_networks::nano_test_network ? nano_test_account : network_a == nano::nano_networks::nano_beta_network ? nano_beta_account : nano_live_epoch_v2_signer);
 	const char * epoch_message_v2 ("epoch v2 block");

@@ -980,7 +980,7 @@ void nano::json_handler::active_difficulty ()
 void nano::json_handler::available_supply ()
 {
 	auto genesis_balance (node.balance (node.network_params.ledger.genesis_account)); // Cold storage genesis
-	auto burned_balance (node.balance (nano::account ("DB757A2CE89B5625113054302FFCA08C63EE1E28727FE8B9C5839E6364D2CB80"))); // burned_balance account
+	auto burned_balance (node.balance (nano::account ("85AC1C4EF34160F708385ED308A9FF92693ABCA63442B5D07EC73F3184D39EFF"))); // burned_balance account
 	auto available (node.network_params.ledger.genesis_amount - genesis_balance - burned_balance);
 	response_l.put ("available", available.convert_to<std::string> ());
 	response_errors ();

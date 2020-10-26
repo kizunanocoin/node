@@ -51,10 +51,10 @@ external_address (boost::asio::ip::address_v6{}.to_string ())
 		}
 		case nano::nano_networks::nano_live_network:
 			preconfigured_peers.push_back (default_live_peer_network);
-			preconfigured_representatives.emplace_back ("C14F0F0A6687D5E15BCD8B1330B3B0C957C56128E305A8101A3C90EF16E8FECF");
-			preconfigured_representatives.emplace_back ("42ED60B03B7FB7559FF71194789B1372329AA3FC42B05F0A7EC5C714225496A4");
-			preconfigured_representatives.emplace_back ("D2DBF3C81D6C22EC7D0291C0966C1E817AB3E68F703F3E7007ED174D7F2A6116");
-			preconfigured_representatives.emplace_back ("F1BB8153538C26A268721AE323FD0B001EAF45A8B8E6D1B812216E7351601BD6");
+			preconfigured_representatives.emplace_back ("C6BAD37F1608E4B8C30B77C4FBA497B18E1D640BFE670B9D2B213C0A3CB89A8A");
+			preconfigured_representatives.emplace_back ("4A750D16923DBDFC66219FF03384B40713291945A48379F11D5EB1AFAD724346");
+			preconfigured_representatives.emplace_back ("2134BC47645E2A33CF21F92819567A258973BDEF025E56A4CA0737BF53EB02B5");
+			preconfigured_representatives.emplace_back ("D9F3F15AEDC8ACDD0EA91BCC649F1A61159241D028E722EE32859BEB1EF8C91C");
 			break;
 		default:
 			debug_assert (false);
